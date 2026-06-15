@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Wallpaper Hub</title>
+    <title>Fighter Player - Premium Gallery</title>
     <style>
         /* --- CSS STYLING --- */
         * {
@@ -14,8 +14,8 @@
         }
 
         body {
-            background: #0f0f12;
-            color: #fff;
+            background-color: #0f0f12;
+            color: #ffffff;
             min-height: 100vh;
             overflow-x: hidden;
         }
@@ -33,332 +33,46 @@
             align-items: center;
             z-index: 9999;
             animation: fadeOut 1s ease-in-out forwards;
-            animation-delay: 2.5s; /* Animation 2.5 seconds tak chalegi */
+            animation-delay: 2.5s; /* 2.5 seconds baad fade out */
         }
 
         .splash-logo {
-            font-size: 3rem;
-            font-weight: bold;
-            letter-spacing: 3px;
-            background: linear-gradient(45deg, #ff007f, #7f00ff);
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            background: linear-gradient(45deg, #00f2fe, #ff0844);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: scaleUp 1.5s ease-in-out infinite alternate;
         }
 
         @keyframes scaleUp {
-            0% { transform: scale(0.9); filter: drop-shadow(0 0 5px rgba(255,0,127,0.3)); }
-            100% { transform: scale(1.1); filter: drop-shadow(0 0 20px rgba(127,0,255,0.8)); }
+            0% { transform: scale(0.9); filter: drop-shadow(0 0 5px rgba(0,242,254,0.3)); }
+            100% { transform: scale(1.1); filter: drop-shadow(0 0 20px rgba(255,8,68,0.8)); }
         }
 
         @keyframes fadeOut {
             to { opacity: 0; visibility: hidden; }
         }
 
-        /* 2. Main Website Layout */
+        /* 2. Fighter Player Animated Header */
         header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             padding: 20px 5%;
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.02);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             position: sticky;
             top: 0;
             z-index: 100;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, #00f2fe, #4facfe);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* Custom Upload Button */
-        .upload-btn-wrapper {
-            position: relative;
-            overflow: hidden;
-            display: inline-block;
-        }
-
-        .btn-upload {
-            border: 2px dashed #4facfe;
-            color: #4facfe;
-            background-color: transparent;
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-upload:hover {
-            background: #4facfe;
-            color: #fff;
-            box-shadow: 0 0 15px rgba(79, 172, 254, 0.5);
-        }
-
-        .upload-btn-wrapper input[type=file] {
-            font-size: 100px;
-            position: absolute;
-            left: 0;
-            top: 0;
-            opacity: 0;
-            cursor: pointer;
-        }
-
-        /* Gallery Container */
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .gallery-title {
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-            border-left: 4px solid #ff007f;
-            padding-left: 10px;
-        }
-
-        .wallpaper-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        /* Wallpaper Card */
-        .wallpaper-card {
-            background: #1a1a24;
-            border-radius: 15px;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .wallpaper-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-        }
-
-        .wallpaper-img {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-            background: #252533;
-        }
-
-        .card-body {
-            padding: 20px;
-        }
-
-        .download-controls {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .quality-select {
-            flex: 1;
-            background: #252533;
-            color: #fff;
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 10px;
-            border-radius: 8px;
-            outline: none;
-            cursor: pointer;
-        }
-
-        .btn-download {
-            background: linear-gradient(45deg, #00g2fe, #ff007f);
-            background: #ff007f;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: opacity 0.2s;
-        }
-
-        .btn-download:hover {
-            opacity: 0.9;
-        }
-
-        /* Placeholder/No image text */
-        .no-wallpaper {
             text-align: center;
-            grid-column: 1 / -1;
-            padding: 50px;
-            color: #666;
-            font-size: 1.2rem;
-        }
-    </style>
-</head>
-<body>
-
-    <div id="splash-screen">
-        <div class="splash-logo">WALLPAPER HUB</div>
-    </div>
-
-    <header>
-        <div class="logo">WpHub.ai</div>
-        <div class="upload-btn-wrapper">
-            <button class="btn-upload">📤 Upload Wallpaper</button>
-            <input type="file" id="imageLoader" accept="image/*" />
-        </div>
-    </header>
-
-    <div class="container">
-        <h2 class="gallery-title">Your Studio Gallery</h2>
-        <div class="wallpaper-grid" id="wallpaperGrid">
-            <div class="no-wallpaper" id="noWallpaperText">Koi wallpaper upload nahi kiya gaya hai. Kripya upar diye button se upload karein!</div>
-        </div>
-    </div>
-
-    <script>
-        const imageLoader = document.getElementById('imageLoader');
-        const wallpaperGrid = document.getElementById('wallpaperGrid');
-        const noWallpaperText = document.getElementById('noWallpaperText');
-
-        // Page load hote hi check karein ki kya pehle se koi image saved hai?
-        document.addEventListener("DOMContentLoaded", () => {
-            const savedImage = localStorage.getItem("userWallpaper");
-            if (savedImage) {
-                renderWallpaper(savedImage);
-            }
-        });
-
-        // Image upload handle karne ke liye
-        imageLoader.addEventListener('change', handleImage, false);
-
-        function handleImage(e) {
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                const imgDataUrl = event.target.result;
-                
-                // 1. LocalStorage me save karein (Persistence ke liye)
-                try {
-                    localStorage.setItem("userWallpaper", imgDataUrl);
-                    // 2. UI me show karein
-                    renderWallpaper(imgDataUrl);
-                } catch (error) {
-                    alert("Image ka size bahut bada hai! LocalStorage ki limit cross ho gayi hai. Kripya thodi choti image upload karein.");
-                }
-            }
-            if(e.target.files[0]){
-                reader.readAsDataURL(e.target.files[0]);
-            }
         }
 
-        // Card Render karne ka function
-        function renderWallpaper(imgSrc) {
-            // Purana content ya placeholder text hatayein
-            wallpaperGrid.innerHTML = "";
-
-            const card = document.createElement('div');
-            card.className = 'wallpaper-card';
-
-            card.innerHTML = `
-                <img src="${imgSrc}" class="wallpaper-img" id="currentWallpaper" alt="Wallpaper">
-                <div class="card-body">
-                    <h3>My Custom Wallpaper</h3>
-                    <p style="color: #aaa; font-size: 0.9rem; margin-top: 5px;">Choose quality to save in gallery</p>
-                    <div class="download-controls">
-                        <select class="quality-select" id="qualitySelect">
-                            <option value="high">High Quality (Original)</option>
-                            <option value="medium">Medium Quality (Optimized)</option>
-                            <option value="low">Low Quality (Data Saver)</option>
-                        </select>
-                        <button class="btn-download" onclick="triggerDownload()">Download</button>
-                    </div>
-                </div>
-            `;
-            wallpaperGrid.appendChild(card);
-        }
-
-        // Multi-Quality Download Logic using HTML5 Canvas
-        function triggerDownload() {
-            const imgElement = document.getElementById('currentWallpaper');
-            const quality = document.getElementById('qualitySelect').value;
-
-            if (!imgElement) return;
-
-            const img = new Image();
-            img.src = imgElement.src;
-
-            img.onload = function() {
-                // Canvas create karein photo processing ke liye
-                const canvas = document.createElement('canvas');
-                const ctx = canvas.getContext('2d');
-
-                let scale = 1;
-                let encoderOptions = 1.0; // Quality factor (0.0 to 1.0)
-
-                // Quality ke mutabik resolution aur compression set karein
-                if (quality === 'medium') {
-                    scale = 0.7;        // 70% Resolution
-                    encoderOptions = 0.7; // 70% Image Quality
-                } else if (quality === 'low') {
-                    scale = 0.4;        // 40% Resolution
-                    encoderOptions = 0.3; // 30% Image Quality
-                }
-
-                // Canvas dimensions set karein
-                canvas.width = img.width * scale;
-                canvas.height = img.height * scale;
-
-                // Image ko canvas par draw karein
-                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-                // Download link create karein
-                const link = document.createElement('a');
-                link.download = `wallpaper-${quality}.jpg`;
-                
-                // Canvas ko image data me convert karein selected quality ke sath
-                link.href = canvas.toDataURL('image/jpeg', encoderOptions);
-                
-                // Auto click karke gallery/downloads me save karwayein
-                link.click();
-            };
-        }
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fighter Player Gallery</title>
-    <style>
-        /* --- CSS STYLING --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: #121212;
-            color: #ffffff;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        /* Cool and Professional Animation for "Fighter Player" */
         .header-title {
-            text-align: center;
             font-size: 3.5rem;
             font-weight: 900;
             text-transform: uppercase;
             letter-spacing: 4px;
-            margin: 30px 0;
             
             /* Animated Gradient Text */
             background: linear-gradient(90deg, #00f2fe, #4facfe, #00f2fe, #ff0844, #ffb199);
@@ -367,7 +81,6 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-fill-color: transparent;
             
             /* Glow Effect */
             filter: drop-shadow(0px 0px 10px rgba(79, 172, 254, 0.5));
@@ -383,7 +96,20 @@
             100% { transform: scale(1.02); filter: drop-shadow(0px 0px 20px rgba(255, 8, 68, 0.8)); }
         }
 
-        /* Upload Section */
+        /* 3. Upload Section */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .storage-info {
+            text-align: center;
+            color: #aaa;
+            margin-bottom: 25px;
+            font-size: 1rem;
+        }
+
         .upload-section {
             display: flex;
             justify-content: center;
@@ -394,7 +120,7 @@
             background: linear-gradient(45deg, #ff0844, #ffb199);
             color: white;
             border: none;
-            padding: 15px 30px;
+            padding: 15px 35px;
             font-size: 1.2rem;
             font-weight: bold;
             border-radius: 50px;
@@ -408,123 +134,164 @@
             box-shadow: 0 8px 25px rgba(255, 8, 68, 0.6);
         }
 
-        /* Hide actual file input */
         #fileInput {
-            display: none;
+            display: none; /* Hide default input */
         }
 
-        /* Storage Info */
-        .storage-info {
-            text-align: center;
-            color: #888;
-            margin-bottom: 30px;
-            font-size: 0.9rem;
-        }
-
-        /* Gallery Grid */
+        /* 4. Gallery Grid & Cards */
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 15px;
-            max-width: 1200px;
-            margin: 0 auto;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
         }
 
         .photo-card {
-            position: relative;
-            border-radius: 12px;
+            background: #1a1a24;
+            border-radius: 15px;
             overflow: hidden;
-            aspect-ratio: 1 / 1;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            background-color: #1e1e2f;
-            group: card;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
         }
 
         .photo-card img {
             width: 100%;
-            height: 100%;
+            height: 250px;
             object-fit: cover;
-            transition: transform 0.3s;
+            background: #252533;
         }
 
-        .photo-card:hover img {
-            transform: scale(1.1);
+        .card-body {
+            padding: 15px;
         }
 
-        .delete-btn {
-            position: absolute;
-            top: 5px;
-            right: 5px;
+        .card-body h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #4facfe;
+        }
+
+        /* Download & Delete Controls */
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .quality-select {
+            flex: 1;
+            background: #252533;
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 8px;
+            border-radius: 8px;
+            outline: none;
+            cursor: pointer;
+            min-width: 120px;
+        }
+
+        .btn-download {
+            background: #4facfe;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .btn-download:hover {
+            opacity: 0.8;
+        }
+
+        .btn-delete {
             background: rgba(255, 0, 0, 0.8);
             color: white;
             border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-weight: bold;
             cursor: pointer;
-            opacity: 0;
-            transition: opacity 0.3s;
-            font-size: 0.8rem;
+            transition: background 0.2s;
+            width: 100%; /* Make delete button full width below */
+            margin-top: 5px;
         }
 
-        .photo-card:hover .delete-btn {
-            opacity: 1;
+        .btn-delete:hover {
+            background: red;
         }
 
-        /* Responsive adjustments */
-        @media (min-width: 600px) {
-            .gallery {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-                gap: 20px;
-            }
+        .no-wallpaper {
+            text-align: center;
+            grid-column: 1 / -1;
+            padding: 50px;
+            color: #666;
+            font-size: 1.2rem;
         }
     </style>
 </head>
 <body>
 
-    <h1 class="header-title">Fighter Player</h1>
-
-    <p class="storage-info">
-        Yeh website aapke mobile browser ke <b>IndexedDB</b> database ka use karti hai. <br>
-        Aap isme bahut saari photos (kai GBs tak) add kar sakte hain. Photos browser me safe rahengi!
-    </p>
-
-    <div class="upload-section">
-        <button class="upload-btn" id="uploadBtn">Upload Photos 📸</button>
-        <input type="file" id="fileInput" multiple accept="image/*">
+    <div id="splash-screen">
+        <div class="splash-logo">FIGHTER PLAYER</div>
     </div>
 
-    <div class="gallery" id="gallery">
+    <header>
+        <h1 class="header-title">Fighter Player</h1>
+    </header>
+
+    <div class="container">
+        <p class="storage-info">
+            Yeh gallery <b>IndexedDB</b> use karti hai. <br>
+            Aap isme GBs tak multiple photos upload kar sakte hain, aur browser band karne ke baad bhi photos safe rahengi!
+        </p>
+
+        <div class="upload-section">
+            <button class="upload-btn" id="uploadBtn">📤 Upload Photos (Multiple)</button>
+            <input type="file" id="fileInput" multiple accept="image/*">
         </div>
 
+        <div class="gallery" id="gallery">
+            <div class="no-wallpaper" id="noWallpaperText">Loading your awesome gallery...</div>
+        </div>
+    </div>
+
     <script>
-        // IndexedDB Setup for Unlimited/Large Storage (Better than LocalStorage)
-        const dbName = "FighterPlayerGalleryDB";
+        const dbName = "FighterPlayerMasterDB";
         let db;
 
-        // Open Database
+        // ----------------------------------------------------
+        // 1. DATABASE SETUP (IndexedDB for Large Storage)
+        // ----------------------------------------------------
         const request = indexedDB.open(dbName, 1);
 
-        // Jab pehli baar open ho ya version update ho
         request.onupgradeneeded = function(event) {
             db = event.target.result;
-            // Photos store karne ke liye ek table/store banayenge
             if (!db.objectStoreNames.contains("photos")) {
                 db.createObjectStore("photos", { keyPath: "id", autoIncrement: true });
             }
         };
 
-        // DB successfully open hone par
         request.onsuccess = function(event) {
             db = event.target.result;
-            loadPhotos(); // Page load hote hi photos dikhayein
+            loadPhotos(); // Page load par photos dikhayein
         };
 
         request.onerror = function(event) {
             console.error("Database error: ", event.target.errorCode);
-            alert("Storage access me problem aayi. Kripya private mode check karein.");
+            alert("Storage access me problem aayi. Private mode me use na karein.");
         };
 
-        // File Upload Button Logic
+        // ----------------------------------------------------
+        // 2. UPLOAD LOGIC
+        // ----------------------------------------------------
         document.getElementById('uploadBtn').addEventListener('click', () => {
             document.getElementById('fileInput').click();
         });
@@ -536,67 +303,82 @@
             }
         });
 
-        // Photos ko DB me save karne ka function
         function savePhotosToDB(files) {
             const transaction = db.transaction(["photos"], "readwrite");
             const store = transaction.objectStore("photos");
 
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
-                // Hum puri File object save kar rahe hain, jo ki large size support karti hai
                 store.add({ fileBlob: file, name: file.name });
             }
 
             transaction.oncomplete = function() {
-                loadPhotos(); // Save hone ke baad gallery refresh karein
-                document.getElementById('fileInput').value = ""; // Input reset karein
+                loadPhotos(); 
+                document.getElementById('fileInput').value = ""; // Input clear
             };
 
             transaction.onerror = function() {
-                alert("Photo save karne me error aayi! Shayad storage full ho rahi hai.");
+                alert("Photo save karne me error aayi! Storage full ho sakti hai.");
             };
         }
 
-        // DB se photos nikal kar screen par dikhane ka function
+        // ----------------------------------------------------
+        // 3. LOAD & DISPLAY PHOTOS (WITH CONTROLS)
+        // ----------------------------------------------------
         function loadPhotos() {
             const gallery = document.getElementById("gallery");
-            gallery.innerHTML = ""; // Pehle gallery clear karein
+            gallery.innerHTML = ""; // Clear gallery first
 
             const transaction = db.transaction(["photos"], "readonly");
             const store = transaction.objectStore("photos");
-            const request = store.openCursor(); // Data ek-ek karke read karne ke liye
+            const request = store.openCursor();
+
+            let hasPhotos = false;
 
             request.onsuccess = function(event) {
                 const cursor = event.target.result;
                 if (cursor) {
+                    hasPhotos = true;
                     const id = cursor.value.id;
                     const fileBlob = cursor.value.fileBlob;
+                    const name = cursor.value.name;
                     
-                    // Blob/File object ko browser memory me fast show karne ke liye ObjectURL banayenge
                     const imgUrl = URL.createObjectURL(fileBlob);
 
-                    // HTML element create karein
+                    // Create Card
                     const card = document.createElement("div");
                     card.className = "photo-card";
+                    
+                    // Card HTML Structure
+                    card.innerHTML = `
+                        <img src="${imgUrl}" id="img-${id}" alt="${name}">
+                        <div class="card-body">
+                            <h3>Wallpaper #${id}</h3>
+                            <div class="controls">
+                                <select class="quality-select" id="quality-${id}">
+                                    <option value="high">High (Original)</option>
+                                    <option value="medium">Medium (Optimized)</option>
+                                    <option value="low">Low (Data Saver)</option>
+                                </select>
+                                <button class="btn-download" onclick="triggerDownload(${id})">Download</button>
+                            </div>
+                            <button class="btn-delete" onclick="deletePhoto(${id})">Delete Photo</button>
+                        </div>
+                    `;
 
-                    const img = document.createElement("img");
-                    img.src = imgUrl;
-
-                    const delBtn = document.createElement("button");
-                    delBtn.className = "delete-btn";
-                    delBtn.innerHTML = "Delete";
-                    delBtn.onclick = () => deletePhoto(id); // Delete action
-
-                    card.appendChild(img);
-                    card.appendChild(delBtn);
                     gallery.appendChild(card);
-
-                    cursor.continue(); // Next photo pe jayein
+                    cursor.continue(); // Next photo
+                } else {
+                    if (!hasPhotos) {
+                        gallery.innerHTML = `<div class="no-wallpaper">Koi photo upload nahi ki gayi hai. Abhi upload karein!</div>`;
+                    }
                 }
             };
         }
 
-        // Photo delete karne ka function
+        // ----------------------------------------------------
+        // 4. DELETE LOGIC
+        // ----------------------------------------------------
         function deletePhoto(id) {
             if(confirm("Kya aap sach me ye photo delete karna chahte hain?")) {
                 const transaction = db.transaction(["photos"], "readwrite");
@@ -604,11 +386,49 @@
                 store.delete(id);
 
                 transaction.oncomplete = function() {
-                    loadPhotos(); // Delete hone ke baad gallery update karein
+                    loadPhotos(); // Refresh after delete
                 };
             }
+        }
+
+        // ----------------------------------------------------
+        // 5. CANVAS MULTI-QUALITY DOWNLOAD LOGIC
+        // ----------------------------------------------------
+        function triggerDownload(id) {
+            const imgElement = document.getElementById(`img-${id}`);
+            const quality = document.getElementById(`quality-${id}`).value;
+
+            if (!imgElement) return;
+
+            const img = new Image();
+            img.src = imgElement.src; // Blob URL load kar rahe hain
+
+            img.onload = function() {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+
+                let scale = 1;
+                let encoderOptions = 1.0; 
+
+                if (quality === 'medium') {
+                    scale = 0.7;        
+                    encoderOptions = 0.7; 
+                } else if (quality === 'low') {
+                    scale = 0.4;        
+                    encoderOptions = 0.3; 
+                }
+
+                canvas.width = img.width * scale;
+                canvas.height = img.height * scale;
+
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+                const link = document.createElement('a');
+                link.download = `FighterPlayer-${quality}-${id}.jpg`;
+                link.href = canvas.toDataURL('image/jpeg', encoderOptions);
+                link.click(); // Auto-save to gallery/downloads
+            };
         }
     </script>
 </body>
 </html>
-
