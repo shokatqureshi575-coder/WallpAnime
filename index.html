@@ -329,3 +329,286 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fighter Player Gallery</title>
+    <style>
+        /* --- CSS STYLING --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Cool and Professional Animation for "Fighter Player" */
+        .header-title {
+            text-align: center;
+            font-size: 3.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin: 30px 0;
+            
+            /* Animated Gradient Text */
+            background: linear-gradient(90deg, #00f2fe, #4facfe, #00f2fe, #ff0844, #ffb199);
+            background-size: 300% auto;
+            color: #fff;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            
+            /* Glow Effect */
+            filter: drop-shadow(0px 0px 10px rgba(79, 172, 254, 0.5));
+            animation: shine 4s linear infinite, pulse 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes shine {
+            to { background-position: 300% center; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); filter: drop-shadow(0px 0px 10px rgba(79, 172, 254, 0.5)); }
+            100% { transform: scale(1.02); filter: drop-shadow(0px 0px 20px rgba(255, 8, 68, 0.8)); }
+        }
+
+        /* Upload Section */
+        .upload-section {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .upload-btn {
+            background: linear-gradient(45deg, #ff0844, #ffb199);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 8, 68, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .upload-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 8, 68, 0.6);
+        }
+
+        /* Hide actual file input */
+        #fileInput {
+            display: none;
+        }
+
+        /* Storage Info */
+        .storage-info {
+            text-align: center;
+            color: #888;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+
+        /* Gallery Grid */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .photo-card {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 1 / 1;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            background-color: #1e1e2f;
+            group: card;
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .photo-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(255, 0, 0, 0.8);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.8rem;
+        }
+
+        .photo-card:hover .delete-btn {
+            opacity: 1;
+        }
+
+        /* Responsive adjustments */
+        @media (min-width: 600px) {
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1 class="header-title">Fighter Player</h1>
+
+    <p class="storage-info">
+        Yeh website aapke mobile browser ke <b>IndexedDB</b> database ka use karti hai. <br>
+        Aap isme bahut saari photos (kai GBs tak) add kar sakte hain. Photos browser me safe rahengi!
+    </p>
+
+    <div class="upload-section">
+        <button class="upload-btn" id="uploadBtn">Upload Photos 📸</button>
+        <input type="file" id="fileInput" multiple accept="image/*">
+    </div>
+
+    <div class="gallery" id="gallery">
+        </div>
+
+    <script>
+        // IndexedDB Setup for Unlimited/Large Storage (Better than LocalStorage)
+        const dbName = "FighterPlayerGalleryDB";
+        let db;
+
+        // Open Database
+        const request = indexedDB.open(dbName, 1);
+
+        // Jab pehli baar open ho ya version update ho
+        request.onupgradeneeded = function(event) {
+            db = event.target.result;
+            // Photos store karne ke liye ek table/store banayenge
+            if (!db.objectStoreNames.contains("photos")) {
+                db.createObjectStore("photos", { keyPath: "id", autoIncrement: true });
+            }
+        };
+
+        // DB successfully open hone par
+        request.onsuccess = function(event) {
+            db = event.target.result;
+            loadPhotos(); // Page load hote hi photos dikhayein
+        };
+
+        request.onerror = function(event) {
+            console.error("Database error: ", event.target.errorCode);
+            alert("Storage access me problem aayi. Kripya private mode check karein.");
+        };
+
+        // File Upload Button Logic
+        document.getElementById('uploadBtn').addEventListener('click', () => {
+            document.getElementById('fileInput').click();
+        });
+
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const files = e.target.files;
+            if (files.length > 0) {
+                savePhotosToDB(files);
+            }
+        });
+
+        // Photos ko DB me save karne ka function
+        function savePhotosToDB(files) {
+            const transaction = db.transaction(["photos"], "readwrite");
+            const store = transaction.objectStore("photos");
+
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                // Hum puri File object save kar rahe hain, jo ki large size support karti hai
+                store.add({ fileBlob: file, name: file.name });
+            }
+
+            transaction.oncomplete = function() {
+                loadPhotos(); // Save hone ke baad gallery refresh karein
+                document.getElementById('fileInput').value = ""; // Input reset karein
+            };
+
+            transaction.onerror = function() {
+                alert("Photo save karne me error aayi! Shayad storage full ho rahi hai.");
+            };
+        }
+
+        // DB se photos nikal kar screen par dikhane ka function
+        function loadPhotos() {
+            const gallery = document.getElementById("gallery");
+            gallery.innerHTML = ""; // Pehle gallery clear karein
+
+            const transaction = db.transaction(["photos"], "readonly");
+            const store = transaction.objectStore("photos");
+            const request = store.openCursor(); // Data ek-ek karke read karne ke liye
+
+            request.onsuccess = function(event) {
+                const cursor = event.target.result;
+                if (cursor) {
+                    const id = cursor.value.id;
+                    const fileBlob = cursor.value.fileBlob;
+                    
+                    // Blob/File object ko browser memory me fast show karne ke liye ObjectURL banayenge
+                    const imgUrl = URL.createObjectURL(fileBlob);
+
+                    // HTML element create karein
+                    const card = document.createElement("div");
+                    card.className = "photo-card";
+
+                    const img = document.createElement("img");
+                    img.src = imgUrl;
+
+                    const delBtn = document.createElement("button");
+                    delBtn.className = "delete-btn";
+                    delBtn.innerHTML = "Delete";
+                    delBtn.onclick = () => deletePhoto(id); // Delete action
+
+                    card.appendChild(img);
+                    card.appendChild(delBtn);
+                    gallery.appendChild(card);
+
+                    cursor.continue(); // Next photo pe jayein
+                }
+            };
+        }
+
+        // Photo delete karne ka function
+        function deletePhoto(id) {
+            if(confirm("Kya aap sach me ye photo delete karna chahte hain?")) {
+                const transaction = db.transaction(["photos"], "readwrite");
+                const store = transaction.objectStore("photos");
+                store.delete(id);
+
+                transaction.oncomplete = function() {
+                    loadPhotos(); // Delete hone ke baad gallery update karein
+                };
+            }
+        }
+    </script>
+</body>
+</html>
+
