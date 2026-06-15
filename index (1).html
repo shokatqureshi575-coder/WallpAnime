@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anime Wallpaper Vault</title>
+<style>
+  :root{
+    --bg:#0a0a0f;
+    --bg2:#111118;
+    --card:#16161f;
+    --accent:#ff2b4e;
+    --accent2:#7c3aed;
+    --text:#e8e8f0;
+    --muted:#8a8a9a;
+    --border:#26262f;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  body{
+    background: radial-gradient(circle at 50% -10%, #2a0a14 0%, var(--bg) 45%) fixed;
+    color:var(--text);
+    font-family:'Segoe UI', Roboto, sans-serif;
+    min-height:100vh;
+    padding-bottom:60px;
+  }
+
+  header{
+    text-align:center;
+    padding:40px 20px 20px;
+  }
+
+  header h1{
+    font-family:'Trebuchet MS', sans-serif;
+    font-size:2.4rem;
+    letter-spacing:2px;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    text-transform:uppercase;
+  }
+
+  header p{
+    color:var(--muted);
+    margin-top:8px;
+    font-size:0.95rem;
+  }
+
+  .upload-section{
+    display:flex;
+    justify-content:center;
+    margin:25px 0 35px;
+    padding:0 20px;
+  }
+
+  .upload-btn{
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    color:#fff;
+    border:none;
+    padding:14px 32px;
+    font-size:1rem;
+    font-weight:600;
+    border-radius:30px;
+    cursor:pointer;
+    letter-spacing:1px;
+    box-shadow:0 4px 20px rgba(255,43,78,0.35);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+
+  .upload-btn:hover{
+    transform:translateY(-2px) scale(1.03);
+    box-shadow:0 6px 25px rgba(255,43,78,0.5);
+  }
+
+  #fileInput{display:none;}
+
+  .gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(180px, 1fr));
+    gap:18px;
+    padding:0 20px;
+    max-width:1200px;
+    margin:0 auto;
+  }
+
+  .card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:14px;
+    overflow:hidden;
+    position:relative;
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+
+  .card:hover{
+    transform:translateY(-6px);
+    border-color:var(--accent);
+    box-shadow:0 10px 30px rgba(255,43,78,0.25);
+  }
+
+  .card img{
+    width:100%;
+    aspect-ratio:9/16;
+    object-fit:cover;
+    display:block;
+  }
+
+  .card .overlay{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.85) 100%);
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+    padding:14px;
+    opacity:0;
+    transition:opacity .25s ease;
+  }
+
+  .card:hover .overlay{opacity:1;}
+
+  .download-btn{
+    background:var(--accent);
+    color:#fff;
+    border:none;
+    padding:9px 22px;
+    border-radius:20px;
+    font-size:0.85rem;
+    font-weight:600;
+    cursor:pointer;
+    letter-spacing:0.5px;
+    transition:background .2s ease;
+  }
+
+  .download-btn:hover{
+    background:var(--accent2);
+  }
+
+  .empty-msg{
+    text-align:center;
+    color:var(--muted);
+    grid-column:1/-1;
+    padding:60px 20px;
+    font-size:1rem;
+  }
+
+  footer{
+    text-align:center;
+    color:var(--muted);
+    font-size:0.8rem;
+    margin-top:50px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Anime Wallpaper Vault</h1>
+  <p>Apne favourite anime wallpapers collect karein aur download karein</p>
+</header>
+
+<div class="upload-section">
+  <button class="upload-btn" onclick="document.getElementById('fileInput').click()">+ Upload Wallpaper</button>
+  <input type="file" id="fileInput" accept="image/*" multiple>
+</div>
+
+<div class="gallery" id="gallery">
+  <p class="empty-msg" id="emptyMsg">Abhi koi wallpaper nahi hai. Upload button se shuru karein!</p>
+</div>
+
+<footer>Made for anime lovers ⚡ Local gallery — images sirf is browser mein save hoti hain</footer>
+
+<script>
+  const fileInput = document.getElementById('fileInput');
+  const gallery = document.getElementById('gallery');
+  const emptyMsg = document.getElementById('emptyMsg');
+
+  fileInput.addEventListener('change', (e) => {
+    const files = Array.from(e.target.files);
+    files.forEach(file => {
+      if(!file.type.startsWith('image/')) return;
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        addWallpaper(event.target.result, file.name);
+      };
+      reader.readAsDataURL(file);
+    });
+    fileInput.value = '';
+  });
+
+  function addWallpaper(src, name){
+    if(emptyMsg) emptyMsg.remove();
+
+    const card = document.createElement('div');
+    card.className = 'card';
+
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = name;
+
+    const overlay = document.createElement('div');
+    overlay.className = 'overlay';
+
+    const btn = document.createElement('button');
+    btn.className = 'download-btn';
+    btn.textContent = 'Download';
+    btn.onclick = () => downloadImage(src, name);
+
+    overlay.appendChild(btn);
+    card.appendChild(img);
+    card.appendChild(overlay);
+    gallery.appendChild(card);
+  }
+
+  function downloadImage(src, name){
+    const a = document.createElement('a');
+    a.href = src;
+    a.download = name || 'wallpaper.jpg';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  }
+</script>
+
+</body>
+</html>
